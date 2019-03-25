@@ -86,6 +86,8 @@ namespace Bill
                                                      double.Parse(txt_MaterialTotal.Text)
                                                      );
                 print.ShowDialog();
+
+
                 RefForm();
 
 
@@ -115,6 +117,47 @@ namespace Bill
         private void Form1_Load(object sender, EventArgs e)
         {
             RefForm();
+        }
+
+        public void Press(TextBox textBox, KeyPressEventArgs e)
+        {
+            if (textBox.Text.Contains('.') && e.KeyChar == '.')
+            {
+                e.Handled = true;
+            }
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+       
+        public  void Change(TextBox textBox)
+        {
+            if (textBox.Text == ".")
+                textBox.Text = "0.";
+            if (textBox.Text == "")
+                textBox.Text = "0";
+        }
+
+        private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Press(txtQuantity, e);
+        }
+
+        private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Press(txtPrice, e);
+        }
+
+        private void txtPrice_TextChanged(object sender, EventArgs e)
+        {
+            Change(txtPrice);
+        }
+
+        private void txtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            Change(txtQuantity);
         }
     }
 }
